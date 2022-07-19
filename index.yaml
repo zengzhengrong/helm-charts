@@ -1,0 +1,31 @@
+apiVersion: v1
+entries: 
+  django-forum-backend:
+    - apiVersion: v1
+      created: "2022-07-19T22:09:30.3076199+08:00"
+      description: Django Forum Backend
+      home: https://www.atlassian.com/software/jira
+      maintainers:
+      - email: bhg889@163.com
+        name: zeron
+      name: django-forum-backend
+      sources:
+      - https://github.com/zengzhengrong/django-forum-backend
+      urls:
+      - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/django-forum-backend-0.1.0.tgz
+      version: 1.0.0
+  example:
+    - apiVersion: v1
+      created: "2022-07-19T22:09:30.3076199+08:00"
+      description: example
+      home: https://www.atlassian.com/software/jira
+      maintainers:
+      - email: bhg889@163.com
+        name: zeron
+      name: example
+      sources:
+      - https://github.com/zengzhengrong/helm-charts
+      urls:
+      - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/example-0.1.0.tgz
+      version: 1.0.0
+generated: "2022-07-19T22:09:30.3076199+08:00"
