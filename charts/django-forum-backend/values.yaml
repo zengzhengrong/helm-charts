@@ -1,0 +1,303 @@
+# Default values for django-forum-backend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+images:
+  nginx:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  api:
+    repository: zengzhengrong889/django-forum-backend
+    pullPolicy: Always
+    tag: "latest"
+  redis:    
+    repository: redis
+    pullPolicy: IfNotPresent
+    tag: "6.0"
+  mysql:
+    repository: mysql
+    pullPolicy: IfNotPresent
+    tag: "5.7"
+  phpmyadmin:
+    repository: phpmyadmin/phpmyadmin
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+
+nginx:
+  enabled: true
+  configMap:
+    server-snippets: ""
+  deploy:
+    envs:
+      - name: "TZ"
+        value: "Asia/Shanghai"
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 128m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: false
+    annotations: {}
+    kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: xxx.xxx.com
+        paths:
+          - "/"
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+
+api:
+  enabled: true
+  configMap:
+    databaseUrl: ""
+    redisUrl: ""
+  deploy:
+    replicaCount: 1
+    envs:
+      - name: "TZ"
+        value: "Asia/Shanghai"
+    containers:
+      command:
+        waitDB: ""
+        waitDBPort: ""
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 128m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 5555
+  persistentVolumeClaim:
+    accessModes: "ReadWriteMany"
+    storageClassName: "nfs-client"
+    storage: "100M"
+  affinity: {}
+    # podAntiAffinity:
+    #   preferredDuringSchedulingIgnoredDuringExecution:
+    #     - weight: 100
+    #       podAffinityTerm:
+    #         labelSelector:
+    #           matchExpressions:
+    #             - key: app
+    #               operator: In
+    #               values:
+    #                 - django-forum-backend-api
+    #         topologyKey: kubernetes.io/hostname
+    # podAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     - labelSelector:
+    #         matchExpressions:
+    #           - key: app
+    #             operator: In
+    #             values:
+    #               - django-forum-backend-mysql
+    #               - django-forum-backend-redis
+    #       topologyKey: kubernetes.io/hostname
+
+
+redis:
+  enabled: true
+  configMap:
+    conf:
+      - ""
+  deploy:
+    envs:
+      - name: "TZ"
+        value: "Asia/Shanghai"
+    containers:
+      command:
+        - "redis-server"
+      args:
+        - "/etc/redis/redis.conf"
+        - "--protected-mode"
+        - "no"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 6379
+  persistentVolumeClaim:
+    accessModes: "ReadWriteMany"
+    storageClassName: "nfs-client"
+    storage: "200M"
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - django-forum-backend-redis
+            topologyKey: kubernetes.io/hostname
+        
+        
+    
+
+mysql:
+  enabled: true
+  secret:
+    mysqlRootPassword: root
+    mysqlUser: admin
+    mysqlPassword: zzradmin
+  configMap:
+    mysqld:
+      - name: max_connections 
+        value: "1000"
+      - name: sql_mode
+        value: NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+  deploy:
+    envs:
+      - name: "MYSQL_DATABASE"
+        value: "forum"
+      - name: "TZ"
+        value: "Asia/Shanghai"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 3306
+  persistentVolumeClaim:
+    accessModes: "ReadWriteMany"
+    storageClassName: "nfs-client"
+    storage: "2Gi"
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - django-forum-backend-mysql
+          topologyKey: kubernetes.io/hostname
+    # podAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #   - labelSelector:
+    #       matchExpressions:
+    #       - key: app
+    #         operator: In
+    #         values:
+    #         - django-forum-backend-redis
+    #     topologyKey: kubernetes.io/hostname
+     
+  
+
+phpmyadmin:
+  enabled: true
+  deploy:
+    envs:
+      - name: "PMA_HOST"
+        value: "django-forum-backend-mysql-service"
+      - name: "TZ"
+        value: "Asia/Shanghai"
+    livenessProbe:
+      tcpSocket:
+        port: 3306
+      initialDelaySeconds: 180
+      periodSeconds: 60
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: false
+    annotations: {}
+    kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: xxx.xxx.com
+        paths:
+        - "/"
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "django-forum"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+# resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+
