@@ -28,4 +28,18 @@ entries:
       urls:
       - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/example-0.1.0.tgz
       version: 1.0.0
-generated: "2022-07-19T22:09:30.3076199+08:00"
+  rocketmq:
+    - apiVersion: v1
+      created: "2022-09-20T22:09:30.3076199+08:00"
+      description: example
+      home: https://www.atlassian.com/software/jira
+      maintainers:
+      - email: bhg889@163.com
+        name: zeron
+      name: rocketmq
+      sources:
+      - https://github.com/sunnyzhy/rocketmq-helm
+      urls:
+      - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/rocketmq-4.9.4.tgz
+      version: 4.9.4
+generated: "2022-09-20T22:09:30.3076199+08:00"
