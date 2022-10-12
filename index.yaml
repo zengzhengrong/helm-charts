@@ -55,5 +55,5 @@ entries:
       - https://github.com/zengzhengrong/zookeeper
       urls:
       - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/zookeeper-0.2.0.tgz
-      version: 4.9.4
+      version: 3.7.1
 generated: "2022-09-20T22:09:30.3076199+08:00"
