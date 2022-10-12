@@ -17,7 +17,7 @@ entries:
   example:
     - apiVersion: v1
       created: "2022-07-19T22:09:30.3076199+08:00"
-      description: example by helm 
+      description: example
       home: https://www.atlassian.com/software/jira
       maintainers:
       - email: bhg889@163.com
@@ -44,7 +44,7 @@ entries:
       version: 4.9.4
   zookeeper:
     - apiVersion: v1
-      created: "2022-010-12T23:09:30.3076199+08:00"
+      created: "2022-010-12T22:09:30.3076199+08:00"
       description: A Distributed Coordination Service for Distributed Applications
       home: https://github.com/zengzhengrong
       maintainers:
@@ -55,5 +55,5 @@ entries:
       - https://github.com/zengzhengrong/zookeeper
       urls:
       - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/zookeeper-0.2.0.tgz
-      version: 3.7.1
-generated: "2022-10-12T23:09:30.3076199+08:00"
+      version: 4.9.4
+generated: "2022-09-20T22:09:30.3076199+08:00"
