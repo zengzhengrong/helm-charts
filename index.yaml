@@ -44,7 +44,7 @@ entries:
       version: 4.9.4
   zookeeper:
     - apiVersion: v1
-      created: "2022-010-12T22:09:30.3076199+08:00"
+      created: "2022-10-12T22:09:30.3076199+08:00"
       description: A Distributed Coordination Service for Distributed Applications
       home: https://github.com/zengzhengrong
       maintainers:
