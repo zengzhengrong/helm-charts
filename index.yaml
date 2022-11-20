@@ -56,4 +56,18 @@ entries:
       urls:
       - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/zookeeper-0.2.0.tgz
       version: 3.7.1
+  mongodb:
+    - apiVersion: v1
+      created: "2022-11-20T22:09:30.3076199+08:00"
+      description: MongoDB helm chart
+      home: https://github.com/zengzhengrong
+      maintainers:
+      - email: bhg889@163.com
+        name: zeron
+      name: mongodb
+      sources:
+      - https://github.com/zengzhengrong/mongodb
+      urls:
+      - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/mongodb-0.1.0.tgz
+      version: 4.4.17
 generated: "2022-09-20T22:09:30.3076199+08:00"
