@@ -70,4 +70,20 @@ entries:
       urls:
       - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/mongodb-0.1.0.tgz
       version: 4.4.17
+  redis:
+    - apiVersion: v1
+      created: "2022-11-26T22:09:30.3076199+08:00"
+      description: redis helm chart by https://github.com/OT-CONTAINER-KIT/helm-charts
+      home: https://github.com/zengzhengrong
+      maintainers:
+      - email: bhg889@163.com
+        name: zeron
+      name: mongodb
+      sources:
+      - https://github.com/zengzhengrong/helm-charts-ot
+      urls:
+      - https://github.com/zengzhengrong/helm-charts/releases/download/charts-0.1.0/redis-0.12.0.tgz
+      version: 0.12.0
+     
+
 generated: "2022-09-20T22:09:30.3076199+08:00"
