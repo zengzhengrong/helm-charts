@@ -78,7 +78,7 @@ entries:
       maintainers:
       - email: bhg889@163.com
         name: zeron
-      name: mongodb
+      name: redis
       sources:
       - https://github.com/zengzhengrong/helm-charts-ot
       urls:
